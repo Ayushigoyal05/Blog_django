@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>{% block title %}  {% endblock title %}</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Blog Site</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% block homeactive %} {% endblock homeactive %}">
+        <a class="nav-link" href="/Home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% block blogactive %} {% endblock blogactive %}">
+        <a class="nav-link" href="/blog">Blog <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
+        <a class="nav-link" href="/contact">Contact <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% block aboutactive %} {% endblock aboutactive %}">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="search/" method="get">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
+      <button class="btn btn-outline-success  mx-2 my-2 my-sm-0" type="submit">Search</button>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav mr-auto">
+  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        User logged in as:{{request.user}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout/" >logout</a>
+      </li>
+</ul>
+
+{% else %}
+      <button type="button" class="btn btn-primary mx-2" data-toggle="modal" data-target="#singup">
+SignUp 
+</button>
+<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#login">
+Login
+</button>
+{% endif %}
+
+    </form>
+  </div>
+</nav>
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>Message: </strong> {{ message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+
+<!-- Button trigger modal -->
+
+<!--SingUp Modal -->
+<div class="modal fade" id="singup" tabindex="-1" role="dialog" aria-labelledby="singup" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="singup">SignUp Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form action="/signup/" method="post">
+  <div class="form-group">
+    <label for="name">Username</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter a unique username">
+    </div>
+    <div class="form-group">
+    <label for="fname">First name</label>
+    <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your first name">
+    </div>
+    <div class="form-group">
+    <label for="lname">Last name</label>
+    <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your last name">
+    </div>
+    <div>
+  <label for="inputid">Email address</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+  </div>
+  <div class="form-group">
+    <label for="password">Enter Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Enter the Password here">
+  </div>
+  <div class="form-group">
+    <label for="cpassword">Confirm Password</label>
+    <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="confirm password">
+  </div>
+{% csrf_token %}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Login Modal -->
+<div class="modal fade mx-3" id="login" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="login">Login Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form action="login/" method="post">
+  <div class="form-group">
+    <label for="uname">Username</label>
+    <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter the username">
+    </div>
+      <div class="form-group">
+    <label for="upassword">Enter Password</label>
+    <input type="password" class="form-control" id="upassword" name="upassword" placeholder="Enter the Password here">
+  </div>
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block body %} {% endblock body %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

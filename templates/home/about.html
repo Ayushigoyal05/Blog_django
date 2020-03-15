@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} About Page {% endblock title %}
+{% block aboutactive %} About {% endblock aboutactive %}
+{% block body %} 
+<div class="container my-4">
+
+<h3> Here we will explore more about our site and blogs on it.</h3>
+<div class="row">
+<div class="card  m-4" style="width: 18rem;">
+  <img class="card-img-top" src="/static/blog.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">About our Site</h5>
+    <p class="card-text">This site is a open platform to share yourr experience with others in form of blog and also reazd other oeople experiences over here.....</p>
+    <a href="/" class="btn btn-primary">Explre more</a>
+  </div>
+</div>
+<div class="card m-4" style="width: 18rem;">
+  <img class="card-img-top" src="/static/blog4.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">About our Bloggers</h5>
+    <p class="card-text">This blogging site is a used by various blogger accross the globe. They are sharing their life experiences with us.....</p>
+    <a href="/blog" class="btn btn-primary">For more info</a>
+  </div>
+</div>
+<div class="card  m-4" style="width: 18rem;">
+  <img class="card-img-top" src="/static/blog3.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Meaning of Blog</h5>
+    <p class="card-text">A blog is an online journal or informational website displaying information in the reverse chronological order, with the latest posts appearing first....</p>
+    <a href="https://en.wikipedia.org/wiki/Blog" class="btn btn-primary">Explre more</a>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock body %}
